@@ -9,7 +9,7 @@
       "source_image_family": "ubuntu-1710",
       "zone": "europe-west1-b",
       "ssh_username" : "root",
-      "image_name": "docker-1712",
+      "image_name": "docker-17",
       "image_labels": {
         "track": "docker",
         "created": "{{ timestamp }}"
