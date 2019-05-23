@@ -6,10 +6,11 @@
     {
       "type": "googlecompute",
       "project_id": "{{user `project_id`}}",
-      "source_image_family": "ubuntu-1710",
-      "zone": "europe-west1-b",
+      "source_image_family": "ubuntu-1804-lts",
+      "zone": "europe-west4-c",
       "ssh_username" : "root",
-      "image_name": "docker-17",
+      "image_name": "ubuntu-1804-lts-docker",
+      "image_family": "ubuntu-1804",
       "image_labels": {
         "track": "docker",
         "created": "{{ timestamp }}"
@@ -25,7 +26,10 @@
     {
       "type": "shell",
       "script": "bootstrap.sh"
+    },
+    {
+      "type": "shell",
+      "script": "install-k3s.sh"
     }
   ]
-
 }
