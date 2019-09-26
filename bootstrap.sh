@@ -13,6 +13,8 @@ apt-get -y install \
     sudo \
     vim \
     nano \
+    python3 \
+    python3-pip \
     software-properties-common
 
 # Install Docker
