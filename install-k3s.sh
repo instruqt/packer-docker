@@ -2,5 +2,5 @@
 
 set -e -o pipefail
 
+apt install -y jq
 curl -sfL https://get.k3s.io | sh -
-systemctl disable k3s
