@@ -4,7 +4,11 @@ set -e
 
 export DEBIAN_FRONTEND=noninteractive 
 
-apt-get update && apt-get -y upgrade
+
+/usr/bin/cloud-init -d init
+/usr/bin/cloud-init -d modules
+apt-get update 
+apt-get -y upgrade
 apt-get -y install \
     git curl wget \
     apt-transport-https \
