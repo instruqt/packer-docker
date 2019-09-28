@@ -19,7 +19,8 @@ apt-get -y install \
     nano \
     python3 \
     python3-pip \
-    software-properties-common
+    software-properties-common \
+    jq
 
 # Install Docker
 curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add -
@@ -35,7 +36,10 @@ curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compos
 chmod +x /usr/local/bin/docker-compose
 
 # install cloud libraries
-pip3 install awscli google-cloud
+pip3 install awscli google-cloud 'docker[tls]'
+
+# install k3s
+curl -sfL https://get.k3s.io | sh -
 
 # Improve the startup sequence
 cp /tmp/resources/google-startup-scripts.service /etc/systemd/system/multi-user.target.wants/google-startup-scripts.service

@@ -26,10 +26,6 @@
     {
       "type": "shell",
       "script": "bootstrap.sh"
-    },
-    {
-      "type": "shell",
-      "script": "install-k3s.sh"
     }
   ]
 }
