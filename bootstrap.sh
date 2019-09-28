@@ -34,6 +34,8 @@ apt-get update && apt-get install -y docker-ce
 curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
+# install cloud libraries
+pip3 install awscli google-cloud
 
 # Improve the startup sequence
 cp /tmp/resources/google-startup-scripts.service /etc/systemd/system/multi-user.target.wants/google-startup-scripts.service
