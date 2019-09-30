@@ -44,9 +44,8 @@ curl -sfL https://get.k3s.io | sh -
 # Improve the startup sequence
 echo "INFO: copying ./resources to /"
 (cd /tmp/resources ; cp -r ./ /)
-find / -name instruqt-\*
-for service in $(find /tmp/resources -name \*.service); do
-    echo "INFO: enabling $(basename $service)"
-    systemctl enable $(basename $service)
+for cloud in aws gcloud; do
+	systemctl enable instruqt-configure-$cloud.path
+	systemctl start  instruqt-configure-$cloud.path
 done
 systemctl daemon-reload

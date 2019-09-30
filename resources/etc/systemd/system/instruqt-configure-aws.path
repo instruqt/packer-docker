@@ -1,0 +1,7 @@
+[Unit] 
+Description = instruqt environment settings
+Wants = instruqt-configure-aws.service
+[Path]
+PathChanged = /etc/profile.d/instruqt-env.sh
+[Install]
+WantedBy = multi-user.target
