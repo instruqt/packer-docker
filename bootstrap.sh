@@ -22,16 +22,6 @@ apt-get -y install \
     software-properties-common \
     jq
 
-# workaround for missing Instruqt env. variables in check scripts
-(
-cat <<!
-#!/bin/bash
-# get Instruqt environment variables
-bash -l -c "/usr/bin/python3 \$@"
-!
-) > /usr/local/bin/python3
-chmod ugo+x /usr/local/bin/python3
-
 # Install Docker
 curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add -
 add-apt-repository \
@@ -46,11 +36,17 @@ curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compos
 chmod +x /usr/local/bin/docker-compose
 
 # install cloud libraries
-pip3 install awscli google-cloud 'docker[tls]'
+pip3 install awscli google-cloud boto3 'docker[tls]'
 
 # install k3s
 curl -sfL https://get.k3s.io | sh -
 
 # Improve the startup sequence
-cp -rp /tmp/resources/ /
+echo "INFO: copying ./resources to /"
+(cd /tmp/resources ; cp -r ./ /)
+find / -name instruqt-\*
+for service in $(find /tmp/resources -name \*.service); do
+    echo "INFO: enabling $(basename $service)"
+    systemctl enable $(basename $service)
+done
 systemctl daemon-reload

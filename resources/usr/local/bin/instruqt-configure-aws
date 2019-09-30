@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 
 # Available env vars:
 # INSTRUQT_AWS_ACCOUNTS
