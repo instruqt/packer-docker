@@ -22,6 +22,16 @@ apt-get -y install \
     software-properties-common \
     jq
 
+# workaround for missing Instruqt env. variables in check scripts
+(
+cat <<!
+#!/bin/bash
+# get Instruqt environment variables
+bash -l -c "/usr/bin/python3 \$@"
+!
+) > /usr/local/bin/python3
+chmod ugo+x /usr/local/bin/python3
+
 # Install Docker
 curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add -
 add-apt-repository \
