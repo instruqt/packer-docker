@@ -1,0 +1,11 @@
+[Unit]
+Description=Instruqt AWS credentials configuration
+After=google-startup-scripts.service
+
+[Service]
+ExecStart=/usr/local/bin/instruqt-configure-aws
+Type=oneshot
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
