@@ -1,0 +1,13 @@
+[Unit]
+Description=Instruqt GCloud credentials configuration
+After=local-fs.target network-online.target network.target rsyslog.service
+After=google-instance-setup.service google-network-setup.service
+Wants=local-fs.target network-online.target network.target
+
+[Service]
+ExecStart=/usr/local/bin/instruqt-configure-gcloud
+Type=oneshot
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target

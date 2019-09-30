@@ -52,5 +52,5 @@ pip3 install awscli google-cloud 'docker[tls]'
 curl -sfL https://get.k3s.io | sh -
 
 # Improve the startup sequence
-cp /tmp/resources/google-startup-scripts.service /etc/systemd/system/multi-user.target.wants/google-startup-scripts.service
+cp -rp /tmp/resources/ /
 systemctl daemon-reload
