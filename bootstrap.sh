@@ -41,6 +41,9 @@ pip3 install awscli google-cloud boto3 'docker[tls]'
 # install k3s
 curl -sfL https://get.k3s.io | sh -
 
+# install eksctl
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /usr/local/bin
+
 # Improve the startup sequence
 echo "INFO: copying ./resources to /"
 (cd /tmp/resources ; cp -r ./ /)
