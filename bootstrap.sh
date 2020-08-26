@@ -6,17 +6,21 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get update && apt-get -y upgrade
 apt-get -y install \
-    git curl wget \
+    curl \
+    wget \
     apt-transport-https \
     ca-certificates \
     curl \
     sudo \
-    vim \
-    nano \
-    software-properties-common \
-    docker.io
+    gnupg-agent \
+    software-properties-common
 
+
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+sudo usermod -aG docker root
 
 # Install Docker Compose
-curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
