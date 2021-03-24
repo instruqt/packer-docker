@@ -9,7 +9,7 @@
       "source_image_family": "ubuntu-minimal-2004-lts",
       "zone": "europe-west1-b",
       "ssh_username" : "root",  
-      "image_name": "docker-1903",
+      "image_name": "docker-2010",
       "image_labels": {
         "track": "docker",
         "created": "{{ timestamp }}"
