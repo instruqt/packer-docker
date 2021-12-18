@@ -8,6 +8,7 @@ apt-get update && apt-get -y upgrade
 apt-get -y install \
     curl \
     wget \
+    git \
     apt-transport-https \
     ca-certificates \
     curl \
