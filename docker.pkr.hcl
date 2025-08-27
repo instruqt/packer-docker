@@ -26,7 +26,7 @@ source "googlecompute" "docker" {
   region     = var.region
   zone       = var.zone
 
-  image_family = "docker-2010-v2"
+  image_family = "docker"
   image_name   = "docker-2010-v2"
 
   source_image_family             = "ubuntu-2204-lts"
@@ -55,8 +55,8 @@ build {
       "export DEBIAN_FRONTEND=noninteractive",
       "apt-get update && apt-get -y upgrade",
       "apt-get -y install curl wget git apt-transport-https ca-certificates curl sudo gnupg-agent software-properties-common",
-      "curl -fsSL https://get.docker.com -o get-docker.sh | sudo sh",
-      #"sudo usermod -aG docker root",
+      "curl -fsSL https://get.docker.com | sudo sh",
+      "sudo usermod -aG docker root",
       "sudo curl -L \"https://github.com/docker/compose/releases/download/1.28.6/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
       "chmod +x /usr/local/bin/docker-compose",
     ]
