@@ -1,3 +1,7 @@
+variable "docker_version" {
+  type = string
+}
+
 variable "project_id" {
   type = string
 }
@@ -26,10 +30,10 @@ source "googlecompute" "docker" {
   region     = var.region
   zone       = var.zone
 
-  image_family = "docker"
-  image_name   = "docker-2010-v2"
+  image_family = "docker-${regex_replace(var.docker_version, "[^0-9]", "-")}"
+  image_name   = "docker-${regex_replace(var.docker_version, "[^0-9]", "-")}-${uuidv4()}"
 
-  source_image_family             = "ubuntu-2204-lts"
+  source_image_family             = "ubuntu-minimal-2404-lts-amd64"
   machine_type                    = "n1-standard-4"
   disk_size                       = 20
   disable_default_service_account = true
