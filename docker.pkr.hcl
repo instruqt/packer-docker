@@ -50,8 +50,15 @@ build {
   sources = ["source.googlecompute.docker"]
 
   provisioner "file" {
-    sources = ["resources/google-startup-scripts.service"]
-    destination = "/tmp/resources"
+    source = "daemon.json"
+    destination = "/tmp/daemon.json"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "mkdir -p /etc/docker",
+      "mv /tmp/daemon.json /etc/docker/daemon.json",
+    ]
   }
 
   provisioner "shell" {
