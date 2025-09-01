@@ -2,6 +2,10 @@ variable "docker_version" {
   type = string
 }
 
+variable "docker_compose_version" {
+  type = string
+}
+
 variable "project_id" {
   type = string
 }
@@ -49,29 +53,16 @@ source "googlecompute" "docker" {
 build {
   sources = ["source.googlecompute.docker"]
 
+  provisioner "shell" {
+    script = "bootstrap.sh"
+    env = {
+      DOCKER_VERSION         = var.docker_version
+      DOCKER_COMPOSE_VERSION = var.docker_compose_version
+    }
+  }
+
   provisioner "file" {
-    source = "daemon.json"
-    destination = "/tmp/daemon.json"
-  }
-
-  provisioner "shell" {
-    inline = [
-      "mkdir -p /etc/docker",
-      "mv /tmp/daemon.json /etc/docker/daemon.json",
-    ]
-  }
-
-  provisioner "shell" {
-    inline = [
-      "export DEBIAN_FRONTEND=noninteractive",
-      "apt-get update && apt-get -y upgrade",
-      "apt-get -y install curl wget git apt-transport-https ca-certificates curl sudo gnupg-agent software-properties-common",
-      "curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x get-docker.sh",
-      "sudo sh get-docker.sh --version ${var.docker_version}",
-      "rm get-docker.sh",
-      "sudo usermod -aG docker root",
-      "sudo curl -L \"https://github.com/docker/compose/releases/download/1.28.6/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
-      "chmod +x /usr/local/bin/docker-compose",
-    ]
+    source      = "resources/daemon.json"
+    destination = "/etc/docker/daemon.json"
   }
 }
