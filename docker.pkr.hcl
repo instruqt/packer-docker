@@ -56,14 +56,14 @@ source "googlecompute" "docker" {
 
 source "qemu" "docker" {
   iso_url          = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
-  iso_checksum     = "none"
+  iso_checksum     = "file:https://cloud-images.ubuntu.com/noble/current/SHA256SUMS"
   disk_image       = true
   output_directory = "output-docker"
   vm_name          = "docker-vm.qcow2"
   format           = "qcow2"
   disk_size        = "20G"
 
-  accelerator  = "none"
+  accelerator  = "kvm"
   machine_type = "q35"
   cpus         = 4
   memory       = 4096
