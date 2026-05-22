@@ -26,6 +26,10 @@ packer {
       source  = "github.com/hashicorp/googlecompute"
       version = "~> 1"
     }
+    qemu = {
+      source  = "github.com/hashicorp/qemu"
+      version = "~> 1"
+    }
   }
 }
 
@@ -50,8 +54,35 @@ source "googlecompute" "docker" {
   }
 }
 
+source "qemu" "docker" {
+  iso_url          = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+  iso_checksum     = "none"
+  disk_image       = true
+  output_directory = "output-docker"
+  vm_name          = "docker-vm.qcow2"
+  format           = "qcow2"
+  disk_size        = "20G"
+
+  accelerator  = "none"
+  machine_type = "q35"
+  cpus         = 4
+  memory       = 4096
+
+  headless         = true
+  ssh_username     = "root"
+  ssh_password     = "packer"
+  ssh_timeout      = "5m"
+  shutdown_command = "shutdown -P now"
+
+  cd_files = ["cloud-init/meta-data", "cloud-init/user-data"]
+  cd_label = "cidata"
+}
+
 build {
-  sources = ["source.googlecompute.docker"]
+  sources = [
+    "source.googlecompute.docker",
+    "source.qemu.docker",
+  ]
 
   provisioner "shell" {
     script = "bootstrap.sh"
